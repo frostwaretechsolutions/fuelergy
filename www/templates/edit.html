@@ -1,0 +1,33 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Edit {{ editStation.station }}</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="close()"><i class='ion-ios-close-outline'></i></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class='button-bar'>
+      <button class='button buton-stable' ng-click='setPrice(type)' ng-repeat='type in types track by $index'>
+        {{ type | uppercase }}
+      </button>
+    </div>
+
+    <div class='text-center'>
+      <h3>{{ editType | uppercase }} PRICE</h3>
+      <h1>
+        {{ editPrice }}
+      </h1>  
+      <button class='button button-stable' ng-click='upPrice()'>
+        <i class='ion-ios-arrow-up'></i>
+      </button>
+      <button class='button button-stable' ng-click='downPrice()'>
+        <i class='ion-ios-arrow-down'></i>
+      </button>
+      <br /><br />
+      <button class='button button-large button-outline button-balanced' ng-click='updatePrice()'>
+        <i class='ion-ios-checkmark-outline'></i>
+      </button>
+    </div>
+
+  </ion-content>
+</ion-modal-view>
