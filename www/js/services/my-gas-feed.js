@@ -1,8 +1,8 @@
 (function(){
   var app = angular.module('fuelergy');
 
-  function MyGasFeed($http){
-    var api = 'http://fuelergy-api.herokuapp.com/api';
+  function MyGasFeed($http, API_URL){
+    var api = API_URL + '/api';
     var apiKey = 'xsll7eurs7';
 
     function getStations(opts, success, error){
@@ -29,5 +29,5 @@
     };
   }
 
-  app.factory('MyGasFeed', ['$http', MyGasFeed]);
+  app.factory('MyGasFeed', ['$http', 'API_URL', MyGasFeed]);
 }());

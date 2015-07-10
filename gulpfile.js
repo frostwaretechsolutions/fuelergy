@@ -6,6 +6,15 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var preprocess = require('gulp-preprocess');
+
+gulp.task('int', function(){
+  gulp.src('./template/config.js').pipe(preprocess({context: { NODE_ENV: 'integration' }})).pipe(gulp.dest('./www/js/'));
+});
+
+gulp.task('prod', function(){
+  gulp.src('./template/config.js').pipe(preprocess({context: { NODE_ENV: 'production' }})).pipe(gulp.dest('./www/js/'));
+});
 
 var paths = {
   sass: ['./scss/**/*.scss']

@@ -1,7 +1,7 @@
 (function(){
   var app = angular.module('fuelergy');
 
-  function HomeCtrl($scope, MyGasFeed, $cordovaGeolocation, $ionicModal, $ionicLoading, lodash){
+  function HomeCtrl($scope, MyGasFeed, $cordovaGeolocation, $ionicModal, $ionicLoading, lodash, API_URL){
     function init(cb){
       // Position Options
       var posOptions = {
@@ -46,7 +46,7 @@
     }
 
     function getImage(station){
-      return 'http://fuelergy-api.herokuapp.com/images/stations/' + station.toLowerCase() + '.png';
+      return API_URL + '/images/stations/' + station.toLowerCase() + '.png';
     }
 
     function edit(station){
@@ -119,6 +119,6 @@
     $scope.init($scope.unloading);
   }
 
-  app.controller('HomeCtrl', ['$scope', 'MyGasFeed', '$cordovaGeolocation', '$ionicModal', '$ionicLoading', 'lodash', HomeCtrl]);
+  app.controller('HomeCtrl', ['$scope', 'MyGasFeed', '$cordovaGeolocation', '$ionicModal', '$ionicLoading', 'lodash', 'API_URL', HomeCtrl]);
 
 }());
