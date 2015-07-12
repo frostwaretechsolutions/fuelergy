@@ -1,5 +1,14 @@
 (function(){
-  angular.module('fuelergy', ['ionic', 'ngResource', 'ngCordova', 'ngLodash'])
+  var injects = [
+    'ionic',
+    'ngResource',
+    'ngCordova',
+    'ngLodash',
+    'ngCookies',
+    'ui.utils.masks'
+  ];
+
+  angular.module('fuelergy', injects)
 
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -39,7 +48,8 @@
       url: '/profile',
       views: {
         'menuContent': {
-          templateUrl: 'templates/profile.html'
+          templateUrl: 'templates/profile.html',
+          controller: 'ProfileCtrl'
         }
       }
     });

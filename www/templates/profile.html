@@ -1,5 +1,44 @@
 <ion-view view-title="Profile">
   <ion-content>
     <h1>Profile</h1>
+    <div class='list'>
+      <div class='item item-input item-stacked-label'>
+        <span class='input-label'>First Name</span>
+        <input type='text' ng-model='user.firstName'>
+      </div>
+      <div class='item item-input item-stacked-label'>
+        <span class='input-label'>Last Name</span>
+        <input type='text' ng-model='user.lastName'>
+      </div>
+      <div class='item item-input item-stacked-label'>
+        <span class='input-label'>Phone</span>
+        <input type='tel' placeholder='Phone' ng-model='user.phone' ui-us-phone-number>
+      </div>
+      <div class='item item-input item-stacked-label'>
+        <span class='input-label'>Address</span>
+        <input type='text' placeholder='Address' ng-model='user.address'>
+      </div>
+      <div class='item item-input item-stacked-label'>
+        <span class='input-label'>City</span>
+        <input type='text' placeholder='City' ng-model='user.city'>
+      </div>
+      <div class='item item-input item-select'>
+        <div class='input-label'>State</div>
+        <select ng-model='user.state' ng-options='state.abbreviation for state in states'>
+        </select>
+      </div>
+      <div class='item item-input item-select'>
+        <div class='input-label'>Year</div>
+        <select ng-model='user.year' ng-options='year for year in years' ng-change='getMakes()'></select>
+      </div>
+      <div class='item item-input item-select'>
+        <div class='input-label'>Make</div>
+        <select ng-model='user.make' ng-options='make.niceName as make.name for make in makes' ng-change='getModels()'></select>
+      </div>
+      <div class='item item-input item-select'>
+        <div class='input-label'>Model</div>
+        <select ng-model='user.model' ng-options='model.niceName as model.name for model in models'></select>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

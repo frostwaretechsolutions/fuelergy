@@ -7,6 +7,8 @@
   },
   "dependencies": {
     "angular-mocks": "~1.4.2",
-    "ng-lodash": "~0.2.3"
+    "ng-lodash": "~0.2.3",
+    "angular-cookies": "~1.4.2",
+    "angular-input-masks": "~2.0.0"
   }
 }

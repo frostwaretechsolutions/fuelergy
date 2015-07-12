@@ -11,6 +11,10 @@
       $scope.loginModal = modal;
     });
 
+    function init(){
+      Session.getCurrentUser();
+    }
+
     function closeLogin() {
       $scope.loginModal.hide();
       $scope.loginData = {};
@@ -34,12 +38,12 @@
     }
 
     function doLogout() {
-      Session.currentUser = null;
+      Session.removeCurrentUser();
     }
 
     function doLogin(){
       User.login($scope.loginData, function(user){
-        Session.currentUser = user;
+        Session.setCurrentUser(user);
         $scope.closeLogin();
       }, function(){
 
@@ -53,8 +57,22 @@
     $scope.doLogin     = doLogin;
     $scope.doLogout    = doLogout;
     $scope.loggedIn    = Authentication.loggedIn;
+    $scope.init        = init;
+
+    $scope.init();
 
   }
 
-  app.controller('AppCtrl', ['$scope', '$ionicModal', '$ionicPopup', '$timeout', 'Session', 'Authentication', 'User', AppCtrl]);
+  var injects = [
+    '$scope',
+    '$ionicModal',
+    '$ionicPopup',
+    '$timeout',
+    'Session',
+    'Authentication',
+    'User',
+    AppCtrl
+  ];
+
+  app.controller('AppCtrl', injects);
 }());
