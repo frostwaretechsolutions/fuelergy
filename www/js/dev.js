@@ -10,11 +10,11 @@
   }
   function run($httpBackend){
     $httpBackend.whenPOST('http://fuelergy.com/login').respond(loginResponse);
-    $httpBackend.whenGET(/.*templates*./).passThrough();
-    $httpBackend.whenGET(/.*localhost*./).passThrough();
-    $httpBackend.whenPOST(/.*localhost*./).passThrough();
-    $httpBackend.whenGET(/.*fuelergy*./).passThrough();
-    $httpBackend.whenPOST(/.*fuelergy*./).passThrough();
+    $httpBackend.whenGET(/.*templates.*/i).passThrough();
+    $httpBackend.whenGET(/.*localhost.*/i).passThrough();
+    $httpBackend.whenPOST(/.*localhost.*/i).passThrough();
+    $httpBackend.whenGET(/.*fuelergy.*/i).passThrough();
+    $httpBackend.whenPOST(/.*fuelergy.*/i).passThrough();
   }
 
   app.run(run);

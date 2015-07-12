@@ -8,6 +8,10 @@ var rename = require('gulp-rename');
 var sh = require('shelljs');
 var preprocess = require('gulp-preprocess');
 
+gulp.task('dev', function(){
+  gulp.src('./template/config.js').pipe(preprocess({context: { NODE_ENV: 'development' }})).pipe(gulp.dest('./www/js/'));
+});
+
 gulp.task('int', function(){
   gulp.src('./template/config.js').pipe(preprocess({context: { NODE_ENV: 'integration' }})).pipe(gulp.dest('./www/js/'));
 });

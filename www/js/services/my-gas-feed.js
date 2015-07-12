@@ -1,9 +1,8 @@
 (function(){
   var app = angular.module('fuelergy');
 
-  function MyGasFeed($http, API_URL){
+  function MyGasFeed($http, API_URL, API_KEY){
     var api = API_URL + '/api';
-    var apiKey = 'xsll7eurs7';
 
     function getStations(opts, success, error){
       var url = [api,
@@ -13,13 +12,13 @@
                  opts.dist || '2',
                  opts.fuel || 'reg',
                  opts.sort || 'distance',
-                 apiKey].join('/');
+                 API_KEY].join('/');
 
       $http.get(url).success(success).error(error);
     }
 
     function updateStation(opts, success, error) {
-      var url = [api, 'update', apiKey].join('/');
+      var url = [api, 'update', API_KEY].join('/');
       $http.post(url, opts).success(success).error(error);
     }
 
@@ -29,5 +28,5 @@
     };
   }
 
-  app.factory('MyGasFeed', ['$http', 'API_URL', MyGasFeed]);
+  app.factory('MyGasFeed', ['$http', 'API_URL', 'API_KEY', MyGasFeed]);
 }());
