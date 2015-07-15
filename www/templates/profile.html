@@ -24,7 +24,7 @@
       </div>
       <div class='item item-input item-select'>
         <div class='input-label'>State</div>
-        <select ng-model='user.state' ng-options='state.abbreviation for state in states'>
+        <select ng-model='user.state' ng-options='state.name as state.abbreviation for state in states'>
         </select>
       </div>
       <div class='item item-input item-select'>
@@ -39,6 +39,10 @@
         <div class='input-label'>Model</div>
         <select ng-model='user.model' ng-options='model.niceName as model.name for model in models'></select>
       </div>
+      <button class="button button-block button-positive" ng-click='update()'>
+        Save
+      </button>
+      
     </div>
   </ion-content>
 </ion-view>

@@ -1,7 +1,7 @@
 (function(){
   var app = angular.module('fuelergy');
 
-  function ProfileCtrl($scope, Session, STATES, Edmund){
+  function ProfileCtrl($scope, $ionicPopup, Session, STATES, Edmund, User){
     // Definition
     function init(){
       var currentYear = new Date().getFullYear();
@@ -34,10 +34,21 @@
       });
     }
 
+    function update(){
+      User.update($scope.user.id, $scope.user, function(user){
+         $scope.user = user;
+         Session.setCurrentUser(user);
+         $ionicPopup.alert({ title: 'Success!', template: 'Your profile has successfully saved.' });
+      }, function(err){
+        
+      });
+    }
+
     // Injection
     $scope.init      = init;
     $scope.getMakes  = getMakes;
     $scope.getModels = getModels;
+    $scope.update    = update;
 
     //Initialization
     $scope.init();
@@ -45,9 +56,11 @@
 
   var injects = [
     '$scope',
+    '$ionicPopup',
     'Session',
     'STATES',
     'Edmund',
+    'User',
     ProfileCtrl
   ];
 

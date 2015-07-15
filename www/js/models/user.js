@@ -3,7 +3,8 @@
   
   function User($resource, API_URL){
     return $resource(API_URL + '/api/user/:id', { id: '@id' }, {
-        login: { method: 'POST', url: API_URL + '/api/login', isArray: false }
+        login: { method: 'POST', url: API_URL + '/api/login', isArray: false },
+        update: { method: 'PUT' }
     });
   }
 
