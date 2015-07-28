@@ -6,6 +6,7 @@ www/js/config.js
 node_modules/
 platforms/
 plugins/
+.io-config.json
 *.swp
 *.swa
 *.swo

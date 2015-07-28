@@ -14,6 +14,9 @@
       for(var i=currentYear;i>=1950;i--){
         $scope.years.push(i);
       }
+      
+      if($scope.user.year) $scope.getMakes();
+      if($scope.user.year && $scope.user.make) $scope.getModels();
     }
 
     function getMakes(){
@@ -38,9 +41,11 @@
       User.update($scope.user.id, $scope.user, function(user){
          $scope.user = user;
          Session.setCurrentUser(user);
-         $ionicPopup.alert({ title: 'Success!', template: 'Your profile has successfully saved.' });
+         var successPopup = $ionicPopup.alert({ title: 'Success!', template: 'Your profile has successfully saved.' });
+         successPopup.then(function(res){});
       }, function(err){
-        
+         var errorPop = $ionicPopup.alert({ title: 'Oops!', template: 'Your profile was not successfully saved.',  });
+         errorPop.then(function(res){});
       });
     }
 
