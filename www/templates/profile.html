@@ -43,6 +43,11 @@
           <option style="display:none" value="">Model</option>
         </select>  
       </div>
+
+      <div class='item range range-positive'>
+        <span class='input-label'>Mileage:  {{ user.mileage }} miles</span><br />
+        <input type='range' min="0" max="1000000" ng-model='user.mileage'>
+      </div>
       <button class="button button-block button-positive" ng-click='update()'>
         Save
       </button>
