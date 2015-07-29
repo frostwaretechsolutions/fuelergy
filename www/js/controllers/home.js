@@ -1,9 +1,11 @@
 (function(){
   var app = angular.module('fuelergy');
 
-  function HomeCtrl($scope, MyGasFeed, $cordovaGeolocation, $ionicModal, $ionicLoading, lodash, API_URL){
+  function HomeCtrl($scope, MyGasFeed, $cordovaGeolocation, $ionicModal, $ionicLoading, $cordovaAdMob, $cordovaDevice, lodash, API_URL, ADMOB){
     function init(cb){
       // Position Options
+      $scope.loadAd();
+
       var posOptions = {
         timeout: 10000,
         enableHighAccuracy: true
@@ -100,6 +102,19 @@
       });
     }
 
+    function loadAd(){
+      document.addEventListener('deviceready', function(){
+        var admobid = ADMOB[$cordovaDevice.getPlatform().toLowerCase()]; 
+        $cordovaAdMob.createBannerView({
+          publisherId: admobid.banner,
+          bannerAtTop: false, // set to true, to put banner at top overlap: false, // set to true, to allow banner overlap webview 
+          offsetTopBar: false, // set to true to avoid ios7 status bar overlap
+          isTesting: false, // receiving test ad
+          autoShow: true // auto show interstitial ad when loaded
+        });
+      });
+    }
+
     $scope.init        = init;
     $scope.loading     = loading;
     $scope.unloading   = unloading;
@@ -111,14 +126,30 @@
     $scope.upPrice     = upPrice;
     $scope.downPrice   = downPrice;
     $scope.updatePrice = updatePrice;
+    $scope.loadAd      = loadAd;
 
     //Initial Properties
     $scope.types = ['reg', 'mid', 'pre', 'diesel'];
 
     $scope.loading();
     $scope.init($scope.unloading);
+    $scope.loadAd();
   }
 
-  app.controller('HomeCtrl', ['$scope', 'MyGasFeed', '$cordovaGeolocation', '$ionicModal', '$ionicLoading', 'lodash', 'API_URL', HomeCtrl]);
+  // Injection
+  var injects = [
+    '$scope',
+    'MyGasFeed',
+    '$cordovaGeolocation',
+    '$ionicModal',
+    '$ionicLoading',
+    '$cordovaAdMob',
+    '$cordovaDevice',
+    'lodash',
+    'API_URL',
+    'ADMOB',
+    HomeCtrl
+  ];
+  app.controller('HomeCtrl', injects);
 
 }());
