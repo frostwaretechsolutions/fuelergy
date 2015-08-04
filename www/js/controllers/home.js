@@ -1,7 +1,7 @@
 (function(){
   var app = angular.module('fuelergy');
 
-  function HomeCtrl($scope, MyGasFeed, $cordovaGeolocation, $ionicModal, $ionicLoading, $cordovaAdMob, $cordovaDevice, lodash, API_URL, ADMOB){
+  function HomeCtrl($scope, $window, MyGasFeed, $cordovaGeolocation, $ionicModal, $ionicLoading, $cordovaAdMob, $cordovaDevice, lodash, API_URL, ADMOB, GOOGLE_KEY){
     function init(cb){
       // Position Options
       $scope.loadAd();
@@ -103,8 +103,10 @@
     }
 
     function loadAd(){
+      $scope.platform = 'www';
       document.addEventListener('deviceready', function(){
-        var admobid = ADMOB[$cordovaDevice.getPlatform().toLowerCase()]; 
+        $scope.platform = $cordovaDevice.getPlatform();
+        var admobid = ADMOB[$scope.device.toLowerCase()]; 
         $cordovaAdMob.createBannerView({
           publisherId: admobid.banner,
           bannerAtTop: false, // set to true, to put banner at top overlap: false, // set to true, to allow banner overlap webview 
@@ -115,18 +117,31 @@
       });
     }
 
-    $scope.init        = init;
-    $scope.loading     = loading;
-    $scope.unloading   = unloading;
-    $scope.refresh     = refresh;
-    $scope.getImage    = getImage;
-    $scope.edit        = edit;
-    $scope.close       = close;
-    $scope.setPrice    = setPrice;
-    $scope.upPrice     = upPrice;
-    $scope.downPrice   = downPrice;
-    $scope.updatePrice = updatePrice;
-    $scope.loadAd      = loadAd;
+    function openDirections(station){
+      var destination = station.address ? [station.address, station.city, station.region].join(', ').replace(' ', '+') : [station.lat, station.lng].join(',');
+      var url = 'comgooglemaps-x-callback://?&daddr=' + destination + '&directionsmode=driving&x-success=fuelergy://?resume=true&x-source=Fuelergy';
+      if($scope.platform === 'www') url = 'https://maps.google.com?&daddr=' + destination; 
+      $window.location = url;
+    }
+
+    function closeDirections(){
+      $scope.directionModal.remove();
+    }
+
+    $scope.init            = init;
+    $scope.loading         = loading;
+    $scope.unloading       = unloading;
+    $scope.refresh         = refresh;
+    $scope.getImage        = getImage;
+    $scope.edit            = edit;
+    $scope.close           = close;
+    $scope.setPrice        = setPrice;
+    $scope.upPrice         = upPrice;
+    $scope.downPrice       = downPrice;
+    $scope.updatePrice     = updatePrice;
+    $scope.loadAd          = loadAd;
+    $scope.openDirections  = openDirections;
+    $scope.closeDirections = closeDirections;
 
     //Initial Properties
     $scope.types = ['reg', 'mid', 'pre', 'diesel'];
@@ -139,6 +154,7 @@
   // Injection
   var injects = [
     '$scope',
+    '$window',
     'MyGasFeed',
     '$cordovaGeolocation',
     '$ionicModal',
@@ -148,6 +164,7 @@
     'lodash',
     'API_URL',
     'ADMOB',
+    'GOOGLE_KEY',
     HomeCtrl
   ];
   app.controller('HomeCtrl', injects);

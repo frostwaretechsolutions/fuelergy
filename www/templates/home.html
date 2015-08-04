@@ -7,7 +7,7 @@
     <img class='img-responsive' src='img/header.png' />
     <div class='list'>
       <div class='card' ng-repeat='station in stations track by $index'>
-        <div class='item item-thumbnail-left'>
+        <div class='item item-thumbnail-left' ng-click='openDirections(station)'>
           <img ng-src='{{ getImage(station.station) }}' ng-error-src="{{ getImage('unbranded') }}" />
           <h2>{{ station.station }}</h2>
           <p>Distance: {{ station.distance }}</p>
@@ -16,7 +16,7 @@
           <p>Premium: {{ station.pre_price }}</p>
           <p>Diesel: {{ station.diesel_price }}</p>
           <div class='text-right'>
-            <button class='button button-small button-clear button-positive' ng-click='edit(station)'>[edit]</button>
+            <button class='button button-small button-clear button-positive' ng-click='edit(station); $event.stopPropagation();'>[edit]</button>
           </div>
         </div>
       </div>
