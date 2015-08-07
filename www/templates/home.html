@@ -6,7 +6,31 @@
     </ion-refresher>
     <img class='img-responsive' src='img/header.png' />
     <div class='list'>
-      <div class='card' ng-repeat='station in stations track by $index'>
+      <div class='item item-stable text-right' ng-click='toggleSort()' ng-class="{active: sortToggle }">
+        Sort <i class='ion-ios-plus-outline' ng-if='!sortToggle'></i><i class='ion-ios-minus-outline' ng-if='sortToggle'></i>
+      </div>
+      <div class="item-accordion" ng-show="sortToggle">
+          <div class='item item-toggle'>
+            Distance
+            <label class='toggle'>
+              <input type='radio' ng-model='sortOption' value='distance' >
+              <div class='track'>
+                <div class='handle'></div>
+              </div>
+            </label>
+          </div>
+          <div class='item item-toggle'>
+            Price
+            <label class='toggle'>
+              <input type='radio' ng-model='sortOption' value='reg_price'>
+              <div class='track'>
+                <div class='handle'></div>
+              </div>
+            </label>
+          </div>
+        </div>  
+      </div>
+      <div class='card' ng-repeat='station in stations | orderBy: sortOption track by $index'>
         <div class='item item-thumbnail-left' ng-click='openDirections(station)'>
           <img ng-src='{{ getImage(station.station) }}' ng-error-src="{{ getImage('unbranded') }}" />
           <h2>{{ station.station }}</h2>

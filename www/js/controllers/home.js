@@ -11,6 +11,8 @@
         enableHighAccuracy: true
       };
 
+      $scope.sortOption = 'distance';
+
       // Getting Current Position
       $cordovaGeolocation.getCurrentPosition(posOptions).then(function(position){
         // Getting My Gas Feed Stations
@@ -128,6 +130,10 @@
       $scope.directionModal.remove();
     }
 
+    function toggleSort(){
+      $scope.sortToggle = !$scope.sortToggle;
+    }
+
     $scope.init            = init;
     $scope.loading         = loading;
     $scope.unloading       = unloading;
@@ -142,6 +148,8 @@
     $scope.loadAd          = loadAd;
     $scope.openDirections  = openDirections;
     $scope.closeDirections = closeDirections;
+    $scope.toggleSort      = toggleSort;
+
 
     //Initial Properties
     $scope.types = ['reg', 'mid', 'pre', 'diesel'];

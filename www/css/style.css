@@ -3,10 +3,25 @@
   height: auto;
 }
 
-text-right {
+.text-right {
   text-align: right;
 }
 
-text-center {
+.text-center {
   text-align: center;
+}
+
+.item-accordion {
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+  line-height: 38px;
+}
+
+.item-accordion.ng-hide {
+  line-height: 0px;
+}
+
+.item-accordion.ng-hide-add, .item-accordion.ng-hide-remove {
+  display: block !important;
 }
