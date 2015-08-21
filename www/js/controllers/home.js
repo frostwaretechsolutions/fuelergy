@@ -2,7 +2,8 @@
   var app = angular.module('fuelergy');
 
   function HomeCtrl($scope, $window, MyGasFeed, $cordovaGeolocation, $ionicModal, $ionicLoading, $cordovaAdMob, $cordovaDevice, lodash, API_URL, ADMOB, GOOGLE_KEY){
-    function init(cb){
+    function init(){
+      $scope.loading();
       // Position Options
       $scope.loadAd();
 
@@ -24,7 +25,7 @@
           // Setting Gas Stations, Current Location
           $scope.stations = data.stations;
           $scope.location = data.geoLocation;
-          if(cb) cb();
+          $scope.unloading();
         }, function(data){
           // My Gas Feed Error
         });   
@@ -34,8 +35,27 @@
     }
 
     function refresh(){
-      $scope.init(function(){
-        $scope.$broadcast('scroll.refreshComplete');
+      var posOptions = {
+        timeout: 10000,
+        enableHighAccuracy: true
+      };
+      // Getting Current Position
+      $cordovaGeolocation.getCurrentPosition(posOptions).then(function(position){
+        // Getting My Gas Feed Stations
+        var opts = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        MyGasFeed.getStations(opts, function(data){
+          // Setting Gas Stations, Current Location
+          $scope.stations = data.stations;
+          $scope.location = data.geoLocation;
+          $scope.$broadcast('scroll.refreshComplete');
+        }, function(data){
+          // My Gas Feed Error
+        });   
+      }, function(err){
+        // Location Error
       });
     }
 
@@ -154,8 +174,7 @@
     //Initial Properties
     $scope.types = ['reg', 'mid', 'pre', 'diesel'];
 
-    $scope.loading();
-    $scope.init($scope.unloading);
+    $scope.init();
     $scope.loadAd();
   }
 
