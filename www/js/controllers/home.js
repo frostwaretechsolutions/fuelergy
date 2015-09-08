@@ -1,7 +1,7 @@
 (function(){
   var app = angular.module('fuelergy');
 
-  function HomeCtrl($scope, $window, MyGasFeed, $cordovaGeolocation, $ionicModal, $ionicLoading, $cordovaAdMob, $cordovaDevice, lodash, API_URL, ADMOB, GOOGLE_KEY){
+  function HomeCtrl($scope, $window, MyGasFeed, $cordovaGeolocation, $ionicModal, $ionicLoading, $cordovaGoogleAds, $cordovaDevice, lodash, API_URL, ADMOB, GOOGLE_KEY){
     function init(){
       $scope.loading();
       // Position Options
@@ -128,15 +128,15 @@
       $scope.platform = 'www';
       document.addEventListener('deviceready', function(){
         $scope.platform = $cordovaDevice.getPlatform();
-        var admobid = ADMOB[$scope.device.toLowerCase()]; 
-        $cordovaAdMob.createBannerView({
-          publisherId: admobid.banner,
-          bannerAtTop: false, // set to true, to put banner at top overlap: false, // set to true, to allow banner overlap webview 
-          offsetTopBar: false, // set to true to avoid ios7 status bar overlap
-          isTesting: false, // receiving test ad
+        var admobid = ADMOB[$scope.platform.toLowerCase()]; 
+        $cordovaGoogleAds.createBanner({
+          adId: admobid.banner,
+          position: 8,
+          overlay: true,
+          isTesting: false,
           autoShow: true // auto show interstitial ad when loaded
-        });
-      });
+        }).then(function(){}, function(){});
+      }, false);
     }
 
     function openDirections(station){
@@ -186,7 +186,7 @@
     '$cordovaGeolocation',
     '$ionicModal',
     '$ionicLoading',
-    '$cordovaAdMob',
+    '$cordovaGoogleAds',
     '$cordovaDevice',
     'lodash',
     'API_URL',
