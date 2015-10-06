@@ -1,7 +1,7 @@
 (function(){
   var app = angular.module('fuelergy');
 
-  function AppCtrl($scope, $ionicModal, $ionicPopup, $timeout, Session, Authentication, User) {
+  function AppCtrl($scope, $ionicModal, $ionicPopup, $timeout, $state, Session, Authentication, User) {
     
     $scope.loginData = {};
 
@@ -39,6 +39,7 @@
 
     function doLogout() {
       Session.removeCurrentUser();
+      $state.go('app.home');
     }
 
     function doLogin(){
@@ -68,6 +69,7 @@
     '$ionicModal',
     '$ionicPopup',
     '$timeout',
+    '$state',
     'Session',
     'Authentication',
     'User',
