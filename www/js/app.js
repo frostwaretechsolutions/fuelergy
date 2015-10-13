@@ -24,7 +24,7 @@
     });
   })
 
-  .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $httpProvider, $cordovaInAppBrowserProvider) {
     $stateProvider
 
     .state('app', {
@@ -48,7 +48,64 @@
       url: '/about',
       views: {
         'menuContent': {
-          templateUrl: 'templates/about.html'
+          templateUrl: 'templates/about.html',
+          controller: 'AboutCtrl'
+        }
+      }
+    })
+
+    .state('app.support', {
+      url: '/support',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/about/support.html',
+          controller:  'SupportCtrl'
+        }
+      }
+    })
+
+    .state('app.privacy', {
+      url: '/privacy',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/about/privacy.html',
+        }
+      }
+    })
+
+    .state('app.security', {
+      url: '/security',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/about/security.html',
+        }
+      }
+    })
+
+    .state('app.terms', {
+      url: '/terms',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/about/terms.html',
+        }
+      }
+    })
+
+    .state('app.policies', {
+      url: '/policies',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/about/policies.html',
+        }
+      }
+    })
+
+    .state('app.contact', {
+      url: '/contact',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/about/contact.html',
+          controller:  'ContactCtrl'
         }
       }
     })
@@ -71,5 +128,13 @@
     $httpProvider.defaults.headers.post = {};
     $httpProvider.defaults.headers.put = {};
     $httpProvider.defaults.headers.patch = {};
+
+    var defaultOptions = {
+      location: 'no',
+      clearcache: 'no',
+      toolbar: 'no'
+    };
+
+    $cordovaInAppBrowserProvider.setDefaultOptions(defaultOptions);
   });
 }());

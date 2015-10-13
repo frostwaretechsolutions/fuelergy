@@ -22,7 +22,12 @@
     "cordova-plugin-splashscreen",
     "com.ionic.keyboard",
     "cordova-plugin-geolocation",
-    "cordova-plugin-admobpro"
+    "cordova-plugin-admobpro",
+    {
+      "locator": "https://github.com/ohh2ahh/AppAvailability.git",
+      "id": "cordova-plugin-appavailability"
+    },
+    "org.apache.cordova.inappbrowser"
   ],
   "cordovaPlatforms": [
     "ios"
