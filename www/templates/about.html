@@ -1,23 +1,21 @@
-<ion-view view-title="Home">
+<ion-view view-title="About">
   <ion-content>
     <div class='list card'>
       <div class='item item-avatar'>
-        <img src='img/elliot_cropped.jpg'>
-        <h2>Elliot Frost</h2>
-        <p>CEO of Frostware</p>
+        <img src='img/favicon.png'>
+        <h2>Fuelergy</h2>
+        <p>some cheesey line</p>
       </div>
 
       <div class='item item-body'>
-        <div class='row'>
-          <div class='col'></div>
-          <div class='col'>
-            <img class='full-image' src='img/favicon.png'>
-          </div>
-          <div class='col'></div>
-        </div>
         <p>
-          We developed Fuelergy because honestly... we need it. I kept using other gas apps that either gave me inconsistent results, or I just settled for whatever I could see in front of me. We live in the technical revolution...we should have the absolute best. That's what Fuelergy is.
+Fuelergy. Designed with the traveler in mind, our app will remove stress from road trips for good. Fueling decisions are not to be made on a whim, so Fuelergy keeps guesswork out of the equation by bringing you real time gas prices on the go. Fuelergy keeps it simple so you can enjoy the journey. Let's get there together.
         </p>
+      </div>
+    </div>
+    <div class='list list-inset'>
+      <div class='item' ng-repeat='link in links track by $index'>
+        <p><a ng-click='linkClick(link)'>{{link.name}}</a></p>
       </div>
     </div>
   </ion-content>
