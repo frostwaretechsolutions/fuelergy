@@ -1,9 +1,9 @@
 <ion-view view-title='Contact'>
   <ion-content>
-    <div class='list'>
+    <div class='card'>
       <label class='item item-input item-stacked-label'>
         <span class='input-label'>Email</span>
-        <input type='email' required ng-model='contact.email' placeholder='Email'>
+        <input type='email' required ng-model='contact.email' placeholder='you@domain.com'>
       </label>
       <label class='item item-input item-select'>
         <div class='input-label'>
@@ -19,8 +19,9 @@
         <span class='input-label'>Message</span>
         <textarea required ng-model='contact.message' placeholder='Message'></textarea>
       </label>
-
-      <button class='button button-block button-positive' ng-click='submitContact()'>Contact</button>
+      <div class='item'>
+        <button class='button button-block button-positive' ng-click='submitContact()'>Contact</button>
+      </div>
     </div>
   </ion-content>
 </ion-view>
