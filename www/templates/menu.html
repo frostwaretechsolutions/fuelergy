@@ -33,6 +33,9 @@
         <ion-item menu-close ng-click="logout()" ng-if='loggedIn()'>
           Logout
         </ion-item>
+        <ion-item menu-close ng-click="signup()" ng-if='!loggedIn()'>
+          Sign Up
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>

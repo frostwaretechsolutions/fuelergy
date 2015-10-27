@@ -1,11 +1,12 @@
 (function(){
   var app = angular.module('fuelergy');
 
-  function Session($cookieStore){
+  function Session($cookieStore, $rootScope){
     function setCurrentUser(user){
       var self = this;
 
       self.currentUser = user;
+      $rootScope.$broadcast('$userChange');
       $cookieStore.put('currentUser', user);
     }
 
@@ -17,6 +18,7 @@
     function removeCurrentUser(){
       var self = this;
       self.currentUser = null;
+      $rootScope.$broadcast('$userChange');
       $cookieStore.remove('currentUser');
     }
 
@@ -30,6 +32,7 @@
 
   var injects = [
     '$cookieStore',
+    '$rootScope',
     Session
   ]
 

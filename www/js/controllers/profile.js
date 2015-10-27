@@ -1,7 +1,7 @@
 (function(){
   var app = angular.module('fuelergy');
 
-  function ProfileCtrl($scope, $ionicPopup, Session, STATES, Edmund, User){
+  function ProfileCtrl($scope, $ionicPopup, $rootScope, Session, STATES, Edmund, User){
     // Definition
     function init(){
       var currentYear = new Date().getFullYear();
@@ -49,11 +49,18 @@
       });
     }
 
+    function userChange(){
+      $scope.user = Session.currentUser;
+    }
+
     // Injection
     $scope.init      = init;
     $scope.getMakes  = getMakes;
     $scope.getModels = getModels;
     $scope.update    = update;
+
+    //Events
+    $rootScope.$on('$userChange', userChange);
 
     //Initialization
     $scope.init();
@@ -62,6 +69,7 @@
   var injects = [
     '$scope',
     '$ionicPopup',
+    '$rootScope',
     'Session',
     'STATES',
     'Edmund',
