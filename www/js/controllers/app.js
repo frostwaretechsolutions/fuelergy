@@ -79,20 +79,30 @@
 
     function doSignup() {
       $scope.signupAlerts = [];
-      User.save($scope.signupData, function(user){
-        Session.setCurrentUser(user);
-        $scope.closeSignup();
-      }, function(response){
-        var message = 'There was an error in your request. Please try again. We apologize.';
+      if(!$scope.signupData.username){
+        $scope.signupAlerts.push({ type: 'warning', msg: 'Username must be present' });
+      } else if(!($scope.signupData.email && /[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*/.test($scope.signupData.email))) {
+        $scope.signupAlerts.push({ type: 'warning', msg: 'Must be valid email.' });
+      } else if (!$scope.signupData.password){
+        $scope.signupAlerts.push({ type: 'warning', msg: 'Password must be present.' });
+      } else if($scope.signupData.password != $scope.signupData.confirm) {
+        $scope.signupAlerts.push({ type: 'warning', msg: 'Passwords must match.' });
+      } else {
+        User.save($scope.signupData, function(user){
+          Session.setCurrentUser(user);
+          $scope.closeSignup();
+        }, function(response){
+          var message = 'There was an error in your request. Please try again. We apologize.';
 
-        if(response.status == '409'){
-          message = 'A user with that email or username already exists.';
-        }
+          if(response.status == '409'){
+            message = 'A user with that email or username already exists.';
+          }
 
-        $scope.signupData = {};
+          $scope.signupData = {};
 
-        $scope.signupAlerts.push({ type: 'warning', msg: message });
-      });
+          $scope.signupAlerts.push({ type: 'warning', msg: message });
+        });
+      }
     }
 
     function closeLoginAlert(index){
