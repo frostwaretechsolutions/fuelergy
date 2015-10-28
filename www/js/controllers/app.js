@@ -62,19 +62,25 @@
 
     function doLogin(){
       $scope.loginAlerts = [];
-      User.login($scope.loginData, function(user){
-        Session.setCurrentUser(user);
-        $scope.closeLogin();
-      }, function(response){
-        var message = 'There was an error in your request. Please try again. We apologize.';
-        if(response.status == '404'){
-          message = 'Your username or password was incorrect';
-        }
+      if(!($scope.loginData.username && $scope.loginData.password)){
+        $scope.loginAlerts.push({ type: 'warning', msg: 'Your username or password was incorrect' });
+        $scope.loginData.password = null;
 
-        $scope.loginData.password = '';
+      } else {
+        User.login($scope.loginData, function(user){
+          Session.setCurrentUser(user);
+          $scope.closeLogin();
+        }, function(response){
+          var message = 'There was an error in your request. Please try again. We apologize.';
+          if(response.status == '404'){
+            message = 'Your username or password was incorrect';
+          }
 
-        $scope.loginAlerts.push({ type: 'warning', msg: message });
-      });
+          $scope.loginData.password = null;
+
+          $scope.loginAlerts.push({ type: 'warning', msg: message });
+        });
+      }
     }
 
     function doSignup() {
