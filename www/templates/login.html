@@ -6,6 +6,7 @@
     </div>
   </ion-header-bar>
   <ion-content>
+    <alert ng-repeat='alert in loginAlerts track by $index' type='{{alert.type}}' close='closeLoginAlert($index)'>{{alert.msg}}</alert>
     <form ng-submit="doLogin()">
       <div class="list">
         <label class="item item-input">
