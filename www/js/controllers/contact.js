@@ -3,9 +3,11 @@
 
   var app = angular.module('fuelergy');
 
-  function ContactCtrl($scope, $http, $ionicPopup, $state, API_URL){
+  function ContactCtrl($scope, $http, $ionicPopup, $state, Session, Authentication, API_URL){
     function init(){
       $scope.contact = {};
+      $scope.contact.email = Session.currentUser ? Session.currentUser.email : null;
+      console.log(Session);
     }
 
     function submitContact(){
@@ -34,8 +36,15 @@
       });
     }
 
+    function userChange(){
+      $scope.contact.email = Session.currentUser ? Session.currentUser.email : null;
+    }
+
     $scope.init          = init;
     $scope.submitContact = submitContact;
+
+    //Events
+    $scope.$on('$userChange', userChange);
 
     $scope.init();
   }
@@ -45,6 +54,8 @@
     '$http',
     '$ionicPopup',
     '$state',
+    'Session',
+    'Authentication',
     'API_URL',
     ContactCtrl
   ];
