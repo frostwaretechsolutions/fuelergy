@@ -82,6 +82,8 @@
         $scope.signupAlerts.push({ type: 'warning', msg: 'Must be valid email.' });
       } else if (!$scope.signupData.password){
         $scope.signupAlerts.push({ type: 'warning', msg: 'Password must be present.' });
+      } else if (!$scope.signupData.password.length > 7 {
+        $scope.signupAlerts.push({ type: 'warning', msg: 'Password must be 7 characters long.' });
       } else if($scope.signupData.password != $scope.signupData.confirm) {
         $scope.signupAlerts.push({ type: 'warning', msg: 'Passwords must match.' });
       } else {
