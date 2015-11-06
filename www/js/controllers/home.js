@@ -1,7 +1,7 @@
 (function(){
   var app = angular.module('fuelergy');
 
-  function HomeCtrl($scope, $window, MyGasFeed, $cordovaGeolocation, $ionicModal, $ionicLoading, $cordovaGoogleAds, $cordovaDevice, lodash, API_URL, ADMOB, GOOGLE_KEY){
+  function HomeCtrl($scope, $window, MyGasFeed, Activity, $cordovaGeolocation, $ionicModal, $ionicLoading, $cordovaGoogleAds, $cordovaDevice, lodash, Session, API_URL, ADMOB, GOOGLE_KEY){
     function init(){
       $scope.loading();
       // Position Options
@@ -140,6 +140,12 @@
     }
 
     function openDirections(station){
+      Activity.save({
+        action: 'stationDirections',
+        resource: station.id,
+        user: Session.currentUser ? Session.currentUser.id : null
+      });
+
       var destination = station.address ? [station.address, station.city, station.region].join(', ').replace(' ', '+') : [station.lat, station.lng].join(',');
       var url = 'comgooglemaps-x-callback://?&daddr=' + destination + '&directionsmode=driving&x-success=fuelergy://?resume=true&x-source=Fuelergy';
       if($scope.platform === 'www') url = 'https://maps.google.com?&daddr=' + destination; 
@@ -183,12 +189,14 @@
     '$scope',
     '$window',
     'MyGasFeed',
+    'Activity',
     '$cordovaGeolocation',
     '$ionicModal',
     '$ionicLoading',
     '$cordovaGoogleAds',
     '$cordovaDevice',
     'lodash',
+    'Session',
     'API_URL',
     'ADMOB',
     'GOOGLE_KEY',
