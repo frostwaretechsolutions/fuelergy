@@ -1,6 +1,7 @@
 {
   "name": "fuelergy",
-  "version": "1.1.0",
+  "version": "1.2.2",
+  "subversion": "1.2.2.3",
   "description": "fuelergy: An Ionic project",
   "dependencies": {
     "gulp": "3.9.0",
