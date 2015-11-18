@@ -1,7 +1,7 @@
 (function(){
   var app = angular.module('fuelergy');
 
-  function AppCtrl($scope, $ionicModal, $ionicPopup, $timeout, $state, $rootScope, Session, Authentication, User) {
+  function AppCtrl($scope, $ionicModal, $ionicPopup, $timeout, $state, Session, Authentication, User) {
     
     $scope.loginData = {};
     $scope.signupData = {};
@@ -27,11 +27,13 @@
     function closeLogin() {
       $scope.loginModal.hide();
       $scope.loginData = {};
+      $scope.loginAlerts = [];
     }
     
     function closeSignup() {
       $scope.signupModal.hide();
       $scope.signupData = {};
+      $scope.signupAlerts = [];
     }
 
     function login() {
@@ -57,7 +59,6 @@
 
     function doLogout() {
       Session.removeCurrentUser();
-      $rootScope.$broadcast('$userChange');
       $state.go('app.home');
     }
 
@@ -67,7 +68,6 @@
       Authentication.login($scope.loginData).then(function(user){
         Session.setCurrentUser(user);
         $scope.closeLogin();
-        $rootScope.$broadcast('$userChange');
       }, function(err){
         $scope.loginAlerts.push(err);
         $scope.loginData.password = null;
@@ -90,7 +90,6 @@
         User.save($scope.signupData, function(user){
           Session.setCurrentUser(user);
           $scope.closeSignup();
-          $rootscope.$broadcast('$userChange');
         }, function(response){
           var message = 'There was an error in your request. Please try again. We apologize.';
 
@@ -137,7 +136,6 @@
     '$ionicPopup',
     '$timeout',
     '$state',
-    '$rootScope',
     'Session',
     'Authentication',
     'User',

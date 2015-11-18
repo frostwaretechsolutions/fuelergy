@@ -36,15 +36,8 @@
       });
     }
 
-    function userChange(){
-      $scope.contact.email = Session.currentUser ? Session.currentUser.email : null;
-    }
-
     $scope.init          = init;
     $scope.submitContact = submitContact;
-
-    //Events
-    $scope.$on('$userChange', userChange);
 
     $scope.init();
   }

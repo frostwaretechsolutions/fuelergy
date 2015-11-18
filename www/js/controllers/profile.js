@@ -49,18 +49,11 @@
       });
     }
 
-    function userChange(){
-      $scope.user = Session.currentUser;
-    }
-
     // Injection
     $scope.init      = init;
     $scope.getMakes  = getMakes;
     $scope.getModels = getModels;
     $scope.update    = update;
-
-    //Events
-    $scope.$on('$userChange', userChange);
 
     //Initialization
     $scope.init();

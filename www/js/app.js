@@ -100,6 +100,16 @@
       }
     })
 
+    .state('app.newsletter', {
+      url: '/newsletter',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/about/newsletter.html',
+          controller: 'NewsletterCtrl'
+        }
+      }
+    })
+
     .state('app.contact', {
       url: '/contact',
       views: {

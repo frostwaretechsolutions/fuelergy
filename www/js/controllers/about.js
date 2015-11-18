@@ -23,6 +23,9 @@
           name: 'Policies',
           state: 'policies'
         }, {
+          name: 'Newsletter',
+          state: 'newsletter'
+        }, {
           name: 'Blog',
           link: '//fuelergy.weebly.com'
         }, {
